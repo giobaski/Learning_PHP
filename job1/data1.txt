@@ -1,0 +1,14 @@
+4
+5
+not number
+1
+0
+5
+not number
+4
+2
+1
+8
+not number
+2
+4
