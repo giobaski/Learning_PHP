@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script src="jquery-3.2.1.js"></script>
+	
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div id="errors"><ul></ul></div>
+
+	<form id="registration" action="">
+		<p>
+			<input type="text" name="username" placeholder="Username" value="">
+		</p>
+		<p>
+			<input type="password" name="password" placeholder="Password" value="">
+		</p>
+		<p>
+			<input type="password" name="password2" placeholder="Repeat Password" value="">
+		</p>
+		<p>
+			<input type="text" name="age" placeholder="Age" value="">
+		</p>
+		<button>submit</button>
+	</form>
+
+	<script>
+
+		// $('#submit').on('click', function() {
+		// 	$('#registration').trigger('submit');
+		// });
+	
+		$('form#registration').on('submit', function(event) {
+			event.preventDefault();
+
+			var $this = $(this);
+
+			var errors = [];
+
+			$(this).find('input[type="text"], input[type="password"]').each(function(index, input) {
+				var $input = $(input);
+				
+				if ($input.attr('name') == 'username') {
+					if ($input.val().length < 5) {
+						errors.push('მომხმარებელი არასწორია');
+					}
+				}
+				else if ($input.attr('name') == 'password') {
+					if ($input.val() != $this.find('input[name="password2"]').val()) {
+						errors.push('პაროლები არ ემთხვევა');
+					}
+				}
+				else if ($input.attr('name') == 'age') {
+					if ($input.val() < 18 || $input.val().length == 0) {
+						errors.push('ასაკი არასწორია');
+					}
+				}
+			});
+
+			if ( errors.length > 0 ) {
+				var html = '<li>' + errors.join('</li><li>') + '</li>';
+				$('#errors').show().find('ul').html(html);
+			}
+			else {
+				$('#errors').hide()
+				$.ajax();
+			}
+		});
+
+	</script>
+
+</body>
+</html>

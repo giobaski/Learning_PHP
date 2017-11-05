@@ -5,14 +5,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     foreach ($_FILES['image']['tmp_name'] as $key => $tmpname) {
         $filename = $tmpname;
         $originalName = $_FILES['image']['name'][$key];
-        move_uploaded_file($filename, "./uploads/.$originalName");
+
+            if($_FILES['image']['type'][$key] == 'image/jpeg'){
+              move_uploaded_file($filename, "./images/jpg/.$originalName");
+
+            } elseif($_FILES['image']['type'][$key] == 'image/png'){
+                    move_uploaded_file($filename, "./images/png/.$originalName");
+            } elseif($_FILES['image']['type'][$key] == 'image/gif'){
+                    move_uploaded_file($filename, "./images/gif/.$originalName");
+            }
+            else{
+                move_uploaded_file($filename, "./uploads/.$originalName");
+        }
     }
 
-
-    var_dump($_FILES);
-    // $filename = $_FILES['image']['tmp_name'];
-    // $originalName = $_FILES['image']['name'];
-    // move_uploaded_file($filename, "./uploads/.$originalName");
 }
 
 ?>
